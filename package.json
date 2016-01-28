@@ -1,5 +1,5 @@
 {
-  "name": "webvtt-node",
+  "name": "node-webvtt",
   "version": "1.0.0",
   "description": "WebVTT parser and segmenter with HLS support",
   "main": "index.js",
