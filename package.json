@@ -1,0 +1,28 @@
+{
+  "name": "webvtt-node",
+  "version": "1.0.0",
+  "description": "WebVTT parser and segmenter with HLS support",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/eslint/bin/eslint.js ./ && ./node_modules/mocha/bin/mocha"
+  },
+  "keywords": [
+    "webvtt",
+    "vtt",
+    "segment",
+    "hls",
+    "subtitle",
+    "closed",
+    "caption"
+  ],
+  "author": "Ólafur Sverrir Kjartansson <olafurs@oz.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "eslint": "^1.10.3",
+    "mocha": "^2.3.4"
+  },
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
+}
