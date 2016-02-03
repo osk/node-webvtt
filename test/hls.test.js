@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const chai = require('chai');
 chai.should();
 
@@ -62,5 +63,14 @@ b
     generated[0].content.should.equal(expectedFirstSegment);
     generated[1].filename.should.equal('1.vtt');
     generated[1].content.should.equal(expectedSecondSegment);
+  });
+
+  it.skip('should generate correct playlist, compared to apple tool', () => {
+    const input = fs.readFileSync('./test/data/subs1.vtt');
+    const expectedPlaylist = fs.readFileSync('./test/data/playlist1.m3u8');
+
+    const generated = hls.hlsSegmentPlaylist(input.toString(), 10);
+
+    generated.should.equal(expectedPlaylist.toString());
   });
 });
