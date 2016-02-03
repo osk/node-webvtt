@@ -166,7 +166,7 @@ b`;
     segmented[1].cues[1].should.deep.equal(parsed.cues[1]);
   });
 
-  it('should have correct durations for segments on boundary w/longer end', () => {
+  it('should have right durations for segs on boundary w/longer end', () => {
     const input = `WEBVTT
 
 00:00:09.000 --> 00:00:19.000
@@ -520,6 +520,4 @@ f`;
     segmented[12].duration.should.equal(9.56, 'seg 13 duration');
     segmented[12].cues.length.should.equal(4, 'seg 13 count');
   });
-
-
 });

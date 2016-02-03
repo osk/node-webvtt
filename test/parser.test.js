@@ -123,7 +123,7 @@ b`;
                      end: 1.001,
                      text: 'a\nb',
                      styles: 'align:start line:0%' };
-    var res = parse(input);
+    const res = parse(input);
 
     res.should.have.property('cues').with.length(1);
     res.cues[0].should.deep.equal(parsed);
