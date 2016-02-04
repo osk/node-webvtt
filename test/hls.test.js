@@ -1,4 +1,5 @@
 'use strict';
+/* eslint no-trailing-spaces: 0 */
 
 const fs = require('fs');
 const chai = require('chai');
@@ -63,6 +64,25 @@ b
     generated[0].content.should.equal(expectedFirstSegment);
     generated[1].filename.should.equal('1.vtt');
     generated[1].content.should.equal(expectedSecondSegment);
+  });
+
+  it('should generate allow for setting starting offset of segments', () => {
+    const input = `WEBVTT
+
+00:00:00.000 --> 01:00:00.000 
+a
+`;
+    const expectedSegment = `WEBVTT
+X-TIMESTAMP-MAP=MPEGTS:0,LOCAL:00:00:00.000
+
+00:00:00.000 --> 01:00:00.000 
+a
+`;
+
+    const generated = hls.hlsSegment(input, 3, 0);
+
+    generated[0].filename.should.equal('0.vtt');
+    generated[0].content.should.equal(expectedSegment);
   });
 
   it.skip('should generate correct playlist, compared to apple tool', () => {

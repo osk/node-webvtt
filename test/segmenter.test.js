@@ -520,4 +520,62 @@ f`;
     segmented[12].duration.should.equal(9.56, 'seg 13 duration');
     segmented[12].cues.length.should.equal(4, 'seg 13 count');
   });
+
+  it('should segment correctly with silence in middle', () => {
+    const input = `WEBVTT
+
+00:05:49.720 --> 00:05:53.160
+0
+
+00:05:53.280 --> 00:05:55.400
+1
+
+00:06:00.470 --> 00:06:04.040
+2
+
+00:06:05.160 --> 00:06:06.800
+3
+
+00:06:45.640 --> 00:06:48.600
+4
+
+00:06:48.680 --> 00:06:51.230
+5
+
+00:06:51.320 --> 00:06:54.230
+6
+
+00:06:54.760 --> 00:06:56.320
+7
+
+00:06:56.430 --> 00:06:58.040
+8
+
+00:06:58.080 --> 00:06:59.600
+9
+
+00:06:59.680 --> 00:07:02.160
+10`;
+
+    const parsed = parse(input);
+    const segmented = segment(input);
+
+    parsed.cues.should.have.length(11, 'parsed cues');
+    segmented.should.have.length(5, 'segments');
+    segmented[0].duration.should.equal(350, 'seg 1 duration');
+    segmented[0].cues.length.should.equal(1, 'seg 1 count');
+
+    segmented[1].duration.should.equal(10, 'seg 2 duration');
+    segmented[1].cues.length.should.equal(2, 'seg 2 count');
+
+    segmented[2].duration.should.equal(10, 'seg 3 duration');
+    segmented[2].cues.length.should.equal(2, 'seg 3 count');
+
+    segmented[3].duration.should.equal(40, 'seg 4 duration');
+    segmented[3].cues.length.should.equal(2, 'seg 4 count');
+
+    segmented[4].duration.should.equal(12.16, 'seg 5 duration');
+    segmented[4].cues.length.should.equal(6, 'seg 5 count');
+  });
+
 });
