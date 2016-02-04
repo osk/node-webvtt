@@ -25,13 +25,16 @@ Bar
 
 We can parse, segment and create HLS playlists:
 
-```
-const webvtt = require('webvtt-node');
+```javascript
+const webvtt = require('node-webvtt');
+
+const segmentDuration = 10; // default to 10
+const startOffset = 0; // Starting MPEG TS offset to be used in timestamp map, default 900000
 
 const parsed = webvtt.parse(input);
-const segmented = webvtt.parse(input, 10);
-const playlist = webvtt.hls.hlsSegmentPlaylist(input, 10);
-const segments = webvtt.hls.hlsSegment(input, 10);
+const segmented = webvtt.parse(input, segmentDuration);
+const playlist = webvtt.hls.hlsSegmentPlaylist(input, segmentDuration);
+const segments = webvtt.hls.hlsSegment(input, segmentDuration, startOffset);
 ```
 
 ### Parsing
