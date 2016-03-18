@@ -578,4 +578,23 @@ f`;
     segmented[4].cues.length.should.equal(6, 'seg 5 count');
   });
 
+  it('should allow cues to intersect', () => {
+    const input = `WEBVTT
+
+00:00:00.000 --> 00:00:12.000
+a
+
+00:00:01.000 --> 00:00:13.000
+b`;
+    const parsed = parse(input);
+    const segmented = segment(input);
+
+    parsed.cues.should.have.length(2);
+    segmented.should.have.length(1, 'One segment');
+    segmented[0].duration.should.equal(13, 'Segment duration');
+    segmented[0].cues.should.have.length(2, 'Segment cue count')
+    segmented[0].cues[0].should.deep.equal(parsed.cues[0], 'First cue');
+    segmented[0].cues[1].should.deep.equal(parsed.cues[1], 'Second cue');
+  });
+
 });

@@ -80,17 +80,6 @@ a`;
       .should.throw(parserError, /Start timestamp greater than end/);
   });
 
-  it('should fail parsing cue with start timestamp < end of last', () => {
-    const input = `WEBVTT
-
-00:00.000 --> 00:00.004
-
-00:00.002 --> 00:00.005`;
-
-    (() => { parse(input); })
-      .should.throw(parserError, /Start timestamp less than end of previous/);
-  });
-
   it('should parse cue with legal timestamp and id', () => {
     const input = `WEBVTT
 
@@ -137,5 +126,29 @@ b`;
 a`;
     parse(input).should.have.deep.property('cues[0].start', 600);
     parse(input).should.have.deep.property('cues[0].end', 3600);
+  });
+
+  it('should parse intersecting cues', () => {
+    const input = `WEBVTT
+
+00:00:00.000 --> 00:00:12.000
+a
+
+00:00:01.000 --> 00:00:13.000
+b`;
+    parse(input).cues.should.have.length(2);
+    parse(input).should.have.deep.property('cues[0].start', 0);
+    parse(input).should.have.deep.property('cues[0].end', 12);
+    parse(input).should.have.deep.property('cues[1].start', 1);
+    parse(input).should.have.deep.property('cues[1].end', 13);
+  });
+
+  it('should fail parsing if start equal to end', () => {
+    const input = `WEBVTT
+
+00:00:00.000 --> 00:00:00.000`;
+
+    (() => { parse(input); })
+      .should.throw(parserError, /End must be greater than start/);
   });
 });
