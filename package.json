@@ -1,6 +1,6 @@
 {
   "name": "node-webvtt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "WebVTT parser and segmenter with HLS support",
   "main": "index.js",
   "scripts": {
@@ -15,8 +15,12 @@
     "closed",
     "caption"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ozinc/node-webvtt"
+  },
   "author": "Ólafur Sverrir Kjartansson <olafurs@oz.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "chai": "^3.4.1",
     "eslint": "^1.10.3",
@@ -24,5 +28,8 @@
   },
   "dependencies": {
     "commander": "^2.9.0"
+  },
+  "engines": {
+    "node": ">= 5.4.0"
   }
 }
