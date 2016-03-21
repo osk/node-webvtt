@@ -93,4 +93,28 @@ a
 
     generated.should.equal(expectedPlaylist.toString());
   });
+
+  it('should round target duration up to second', () => {
+    const input = `WEBVTT
+
+00:00.000 --> 00:10.000
+a
+
+00:10.000 --> 00:22.500
+a`;
+    const expectedPlaylist = `#EXTM3U
+#EXT-X-TARGETDURATION:13
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-PLAYLIST-TYPE:VOD
+#EXTINF:10.00000,
+0.vtt
+#EXTINF:12.50000,
+1.vtt
+#EXT-X-ENDLIST
+`;
+    const generated = hls.hlsSegmentPlaylist(input, 10);
+
+    generated.should.equal(expectedPlaylist);
+  });
 });
