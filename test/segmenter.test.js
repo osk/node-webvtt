@@ -592,7 +592,7 @@ b`;
     parsed.cues.should.have.length(2);
     segmented.should.have.length(1, 'One segment');
     segmented[0].duration.should.equal(13, 'Segment duration');
-    segmented[0].cues.should.have.length(2, 'Segment cue count')
+    segmented[0].cues.should.have.length(2, 'Segment cue count');
     segmented[0].cues[0].should.deep.equal(parsed.cues[0], 'First cue');
     segmented[0].cues[1].should.deep.equal(parsed.cues[1], 'Second cue');
   });
