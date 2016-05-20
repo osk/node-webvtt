@@ -134,8 +134,10 @@ a`;
 00:00:00.000 --> 00:00:12.000
 a
 
+
 00:00:01.000 --> 00:00:13.000
 b`;
+
     parse(input).cues.should.have.length(2);
     parse(input).should.have.deep.property('cues[0].start', 0);
     parse(input).should.have.deep.property('cues[0].end', 12);
@@ -150,5 +152,17 @@ b`;
 
     (() => { parse(input); })
       .should.throw(parserError, /End must be greater than start/);
+  });
+
+  it('should parse cue with trailing lines', () => {
+    const input = `WEBVTT
+
+00:00.000 --> 00:00.001
+a
+
+`;
+
+    parse(input).should.have.deep.property('cues[0].start', 0);
+    parse(input).should.have.deep.property('cues[0].end', 0.001);
   });
 });
