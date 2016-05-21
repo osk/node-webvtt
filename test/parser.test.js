@@ -165,4 +165,14 @@ a
     parse(input).should.have.deep.property('cues[0].start', 0);
     parse(input).should.have.deep.property('cues[0].end', 0.001);
   });
+
+  it('should parse cue with one digit hours in timestamp', () => {
+    const input = `WEBVTT
+
+59:16.403 --> 1:04:13.283
+Chapter 17`;
+
+    parse(input).should.have.deep.property('cues[0].start', 3556.403);
+    parse(input).should.have.deep.property('cues[0].end', 3853.283);
+  });
 });
