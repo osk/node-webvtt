@@ -86,8 +86,8 @@ a`;
 1
 00:00.000 --> 00:00.001`;
 
-    parse(input).should.have.deep.property('cues[0].start', 0);
-    parse(input).should.have.deep.property('cues[0].end', 0.001);
+    parse(input).cues[0].start.should.equal(0);
+    parse(input).cues[0].end.should.equal(0.001);
   });
 
   it('should parse cue with legal timestamp, no id and text', () => {
@@ -96,8 +96,8 @@ a`;
 00:00.000 --> 00:00.001
 a`;
 
-    parse(input).should.have.deep.property('cues[0].start', 0);
-    parse(input).should.have.deep.property('cues[0].end', 0.001);
+    parse(input).cues[0].start.should.equal(0);
+    parse(input).cues[0].end.should.equal(0.001);
   });
 
   it('should return parsed data about a single cue', () => {
@@ -108,10 +108,10 @@ a`;
 a
 b`;
     const parsed = { identifier: '1',
-                     start: 0,
-                     end: 1.001,
-                     text: 'a\nb',
-                     styles: 'align:start line:0%' };
+      start: 0,
+      end: 1.001,
+      text: 'a\nb',
+      styles: 'align:start line:0%' };
     const res = parse(input);
 
     res.should.have.property('cues').with.length(1);
@@ -124,8 +124,9 @@ b`;
 1
 10:00.000 --> 01:00:00.000
 a`;
-    parse(input).should.have.deep.property('cues[0].start', 600);
-    parse(input).should.have.deep.property('cues[0].end', 3600);
+
+    parse(input).cues[0].start.should.equal(600);
+    parse(input).cues[0].end.should.equal(3600);
   });
 
   it('should parse intersecting cues', () => {
@@ -139,10 +140,10 @@ a
 b`;
 
     parse(input).cues.should.have.length(2);
-    parse(input).should.have.deep.property('cues[0].start', 0);
-    parse(input).should.have.deep.property('cues[0].end', 12);
-    parse(input).should.have.deep.property('cues[1].start', 1);
-    parse(input).should.have.deep.property('cues[1].end', 13);
+    parse(input).cues[0].start.should.equal(0);
+    parse(input).cues[0].end.should.equal(12);
+    parse(input).cues[1].start.should.equal(1);
+    parse(input).cues[1].end.should.equal(13);
   });
 
   it('should fail parsing if start equal to end', () => {
@@ -162,8 +163,8 @@ a
 
 `;
 
-    parse(input).should.have.deep.property('cues[0].start', 0);
-    parse(input).should.have.deep.property('cues[0].end', 0.001);
+    parse(input).cues[0].start.should.equal(0);
+    parse(input).cues[0].end.should.equal(0.001);
   });
 
   it('should parse cue with one digit hours in timestamp', () => {
@@ -172,8 +173,8 @@ a
 59:16.403 --> 1:04:13.283
 Chapter 17`;
 
-    parse(input).should.have.deep.property('cues[0].start', 3556.403);
-    parse(input).should.have.deep.property('cues[0].end', 3853.283);
+    parse(input).cues[0].start.should.equal(3556.403);
+    parse(input).cues[0].end.should.equal(3853.283);
   });
 
   it('should allow a text header', () => {
@@ -181,7 +182,8 @@ Chapter 17`;
 
     00:00.000 --> 00:00.001
     a`;
-    parse(input).should.have.deep.property('cues[0].end', 0.001);
+
+    parse(input).cues[0].end.should.equal(0.001);
   });
 
   it('should not allow a text header w/o a space or tab after WEBVTT', () => {
@@ -190,7 +192,7 @@ Chapter 17`;
     00:00.000 --> 00:00.001
     a`;
     (() => { parse(input); })
-    .should.throw(parserError, /Header comment must start with space or tab/);
+      .should.throw(parserError, /Header comment must start with space or tab/);
   });
 
   it('should allow NOTE for comments', () => {

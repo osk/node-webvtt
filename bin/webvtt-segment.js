@@ -10,11 +10,11 @@ program
   .version('0.0.1')
   .usage('[options] <webvtt file>')
   .option('-t, --target-duration [duration]',
-          'Target duration for each segment in secods, defaults to 10',
-          parseInt,
-          10)
+    'Target duration for each segment in secods, defaults to 10',
+    parseInt,
+    10)
   .option('-o, --output-directory [dir]',
-           'Output directory for segments and playlist')
+    'Output directory for segments and playlist')
   .option('-v, --verbose', 'Chatty output')
   .option('-s, --silent', 'No output')
   .parse(process.argv);
@@ -94,7 +94,7 @@ segments.forEach((segment, i) => {
     }
   }
 });
-log(`Finished writing segments`);
+log('Finished writing segments');
 
 /** Helpers **/
 
