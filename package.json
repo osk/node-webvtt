@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/ozinc/node-webvtt"
+    "url": "git://github.com/osk/node-webvtt"
   },
   "author": "Ólafur Sverrir Kjartansson <kjarni@gmail.com>",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "mocha": "^2.3.4"
   },
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.18.0"
   },
   "engines": {
     "node": ">= 5.4.0"
