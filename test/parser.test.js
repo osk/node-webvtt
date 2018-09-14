@@ -175,4 +175,47 @@ Chapter 17`;
     parse(input).should.have.deep.property('cues[0].start', 3556.403);
     parse(input).should.have.deep.property('cues[0].end', 3853.283);
   });
+
+  it('should allow a text header', () => {
+    const input = `WEBVTT header
+
+    00:00.000 --> 00:00.001
+    a`;
+    parse(input).should.have.deep.property('cues[0].end', 0.001);
+  });
+
+  it('should not allow a text header w/o a space or tab after WEBVTT', () => {
+    const input = `WEBVTTheader
+
+    00:00.000 --> 00:00.001
+    a`;
+    (() => { parse(input); })
+    .should.throw(parserError, /Header comment must start with space or tab/);
+  });
+
+  it('should allow NOTE for comments', () => {
+    const input = `WEBVTT - Translation of that film I like
+
+    NOTE
+    This translation was done by Kyle so that
+    some friends can watch it with their parents.
+
+    1
+    00:02:15.000 --> 00:02:20.000
+    - Ta en kopp varmt te.
+    - Det är inte varmt.
+
+    2
+    00:02:20.000 --> 00:02:25.000
+    - Har en kopp te.
+    - Det smakar som te.
+
+    NOTE This last line may not translate well.
+
+    3
+    00:02:25.000 --> 00:02:30.000
+    - Ta en kopp`;
+
+    parse(input).cues.should.have.length(3);
+  });
 });
