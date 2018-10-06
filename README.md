@@ -1,7 +1,7 @@
 
-# WebVTT parser and segmenter
+# WebVTT compiler parser and segmenter
 
-Parse WebVTT files, segments and generates HLS playlists for them.
+Compiles, parses WebVTT files, segments and generates HLS playlists for them.
 
 ## Usage
 
@@ -23,7 +23,7 @@ Foo
 Bar
 ```
 
-We can parse, segment and create HLS playlists:
+We can parse, segment and create HLS playlists, and compile back to WebVTT format:
 
 ```javascript
 const webvtt = require('node-webvtt');
@@ -32,6 +32,7 @@ const segmentDuration = 10; // default to 10
 const startOffset = 0; // Starting MPEG TS offset to be used in timestamp map, default 900000
 
 const parsed = webvtt.parse(input);
+const compile = webvtt.compile(input);
 const segmented = webvtt.parse(input, segmentDuration);
 const playlist = webvtt.hls.hlsSegmentPlaylist(input, segmentDuration);
 const segments = webvtt.hls.hlsSegment(input, segmentDuration, startOffset);
@@ -87,6 +88,13 @@ For the above example we'd get:
    ]
 }
 ```
+
+### Compiling
+
+Compiles JSON from the above format back into a WebVTT string.
+
+If the object is missing any attributes, the compiler will throw a `CompilerError` exception. So
+for safety, calls to `compile` should be in `try catch`.
 
 ### Segmenting
 

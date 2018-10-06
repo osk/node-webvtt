@@ -1,7 +1,7 @@
 {
   "name": "node-webvtt",
   "version": "1.1.0",
-  "description": "WebVTT parser and segmenter with HLS support",
+  "description": "WebVTT parser, compiler, and segmenter with HLS support",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/eslint/bin/eslint.js ./ && ./node_modules/mocha/bin/mocha -R dot"
