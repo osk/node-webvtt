@@ -7,6 +7,9 @@ const compiler = require('../lib/compiler');
 const compilerError = compiler.CompilerError;
 const compile = compiler.compile;
 
+const parser = require('../lib/parser');
+const parse = parser.parse;
+
 describe('WebVTT compiler', () => {
 
   it('should not compile null', () => {
@@ -251,17 +254,17 @@ describe('WebVTT compiler', () => {
     const output = `WEBVTT
 
 1
-00:02:15.001 --> 00:02:20.000 
+00:02:15.001 --> 00:02:20.000
 Ta en kopp varmt te.
 Det är inte varmt.
 
 2
-00:02:20.000 --> 00:02:25.000 
+00:02:20.000 --> 00:02:25.000
 Har en kopp te.
 Det smakar som te.
 
 3
-00:02:25.000 --> 00:02:30.000 
+00:02:25.000 --> 00:02:30.000
 Ta en kopp
 `;
 
@@ -281,5 +284,26 @@ Ta en kopp
       });
     })
       .should.not.throw(compilerError, /Timestamp/);
+  });
+
+  it('should be reversible', () => {
+
+    const input = `WEBVTT
+
+1
+00:02:15.001 --> 00:02:20.000
+Ta en kopp varmt te.
+Det är inte varmt.
+
+2
+00:02:20.000 --> 00:02:25.000
+Har en kopp te.
+Det smakar som te.
+
+3
+00:02:25.000 --> 00:02:30.000
+Ta en kopp
+`;
+    compile(parse(input)).should.equal(input);
   });
 });
