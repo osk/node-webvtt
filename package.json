@@ -22,12 +22,12 @@
   "author": "Ólafur Sverrir Kjartansson <kjarni@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^5.5.0",
+    "chai": "^4.2.0",
+    "eslint": "^5.7.0",
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "commander": "^2.18.0"
+    "commander": "^2.19.0"
   },
   "engines": {
     "node": ">= 5.4.0"
