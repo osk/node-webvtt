@@ -4,7 +4,8 @@
   "description": "WebVTT parser and segmenter with HLS support",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/eslint/bin/eslint.js ./ && ./node_modules/mocha/bin/mocha -R dot"
+    "eslint": "eslint *.js **/*.js",
+    "test": "npm run eslint -s && ./node_modules/mocha/bin/mocha -R dot"
   },
   "keywords": [
     "webvtt",
