@@ -47,6 +47,7 @@ try {
 }
 
 let playlist = '';
+
 try {
   log(`Creating playlist for "${input}" with ${t} sec segments`);
   playlist = hls.hlsSegmentPlaylist(content, t);
@@ -56,6 +57,7 @@ try {
 
 const playlistFilename = 'playlist.m3u8';
 const target = path.join(outputDir, playlistFilename);
+
 try {
   log(`Writing ${playlist.length} bytes (utf-8) to "${playlistFilename}"`);
   fs.writeFileSync(target, playlist, 'utf-8');
@@ -65,6 +67,7 @@ try {
 }
 
 let segments = [];
+
 try {
   log(`Segmenting "${input}" (${content.length} bytes) with ${t} sec segments`);
   segments = hls.hlsSegment(content, t);
@@ -78,6 +81,7 @@ log(`Writing ${n} segments`);
 segments.forEach((segment, i) => {
   const filename = segment.filename;
   const targetFile = path.join(outputDir, filename);
+
   try {
     fs.writeFileSync(targetFile, segment.content, 'utf-8');
   } catch (e) {
@@ -85,6 +89,7 @@ segments.forEach((segment, i) => {
   }
 
   const range = 5;
+
   if ((0 <= i && i < range) || (n - range <= i && i <= n)) {
     log(`Wrote segment ${targetFile}`);
   } else {
@@ -123,9 +128,11 @@ function log (m) {
 function fail (m, e) {
   if (!program.silent) {
     console.log(m);
+
     if (e) {
       console.log(`Exception: ${e.stack}`);
     }
   }
+
   process.exit(1);
 }
