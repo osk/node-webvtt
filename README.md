@@ -89,6 +89,48 @@ For the above example we'd get:
 }
 ```
 
+### Metadata
+
+Some WebVTT strings may also contain lines of metadata after the initial `WEBVTT` line, for example:
+
+```
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:01.000
+Hello world!
+```
+
+By passing `{ meta: true }` to the `parse` method, these metadata will be returned as an object called `meta`. For example, parsing the above example:
+
+```js
+parse(webvtt, { meta: true });
+```
+
+would return the following:
+
+```json
+{
+   "valid":true,
+   "meta":{
+      "Kind": "captions",
+      "Language": "en"
+   },
+   "cues":[
+      {
+         "identifier":"",
+         "start":0,
+         "end":1,
+         "text":"Hello world!",
+         "styles":""
+      }
+   ]
+}
+```
+
+If no metadata is available, `meta` will be set to `null` in the result if the option is specified.
+
 ### Compiling
 
 Compiles JSON from the above format back into a WebVTT string.
