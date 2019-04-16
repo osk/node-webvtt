@@ -244,4 +244,77 @@ Chapter 17`;
 
     parse(input).cues.should.have.length(1);
   });
+
+  it('should not return meta by default', () => {
+    const input = `WEBVTT
+
+1
+00:00.000 --> 00:00.001`;
+
+    parse(input).should.have.property('valid').be.true;
+    parse(input).should.not.have.property('meta');
+  });
+
+  it('should accept an options object', () => {
+    const input = `WEBVTT
+
+1
+00:00.000 --> 00:00.001`;
+    const options = { meta: true };
+
+    parse(input, options).cues[0].start.should.equal(0);
+    parse(input, options).cues[0].end.should.equal(0.001);
+  });
+
+  it('should fail if metadata exists but the meta option is not set', () => {
+    const input = `WEBVTT
+Kind: captions
+Language: en
+
+1
+00:00.000 --> 00:00.001`;
+    const options = { };
+
+    (() => { parse(input, options); })
+      .should.throw(parserError, /Missing blank line after signature/);
+  });
+
+  it('should fail if metadata exists but the meta option is false', () => {
+    const input = `WEBVTT
+Kind: captions
+Language: en
+
+1
+00:00.000 --> 00:00.001`;
+    const options = { meta: false };
+
+    (() => { parse(input, options); })
+      .should.throw(parserError, /Missing blank line after signature/);
+  });
+
+  it('should return meta if meta option is true', () => {
+    const input = `WEBVTT
+Kind: captions
+Language: en
+
+1
+00:00.000 --> 00:00.001`;
+    const options = { meta: true };
+
+    parse(input, options).should.have.property('valid').be.true;
+    parse(input, options).should.have.property('meta').be.deep.equal(
+      { Kind: 'captions', Language: 'en' }
+    );
+  });
+
+  it('should return null if meta option is true but no meta', () => {
+    const input = `WEBVTT
+
+1
+00:00.000 --> 00:00.001`;
+    const options = { meta: true };
+
+    parse(input, options).should.have.property('valid').be.true;
+    parse(input, options).should.have.property('meta').be.equal(null);
+  });
 });
