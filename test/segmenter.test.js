@@ -15,7 +15,7 @@ a`;
     const parsed = parse(input);
     const segmented = segment(input, 10);
 
-    parsed.cues.should.have.length(2);
+    parsed.cues.should.have.length(1);
     segmented.should.have.length(1);
 
     segmented[0].cues[0].should.deep.equal(parsed.cues[0]);
