@@ -32,5 +32,11 @@
   },
   "engines": {
     "node": ">= 5.4.0"
+  },
+  "files": [
+    "/lib",
+    "/bin",
+    "index.js"
+  ],
   }
 }
