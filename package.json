@@ -38,5 +38,7 @@
     "/bin",
     "index.js"
   ],
+  "bin": {
+    "webvtt-segment": "./bin/webvtt-segment.js"
   }
 }
