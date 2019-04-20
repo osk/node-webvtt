@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint *.js **/*.js",
-    "test": "npm run eslint -s && nyc mocha -R dot"
+    "test": "npm run eslint -s && nyc mocha -R dot",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "keywords": [
     "webvtt",
@@ -51,7 +52,8 @@
     ],
     "reporter": [
       "text",
-      "html"
+      "html",
+      "lcov"
     ],
     "all": true,
     "check-coverage": true,
