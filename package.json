@@ -25,12 +25,13 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^5.7.0",
-    "mocha": "^5.2.0",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.4",
     "nyc": "^14.0.0"
   },
   "dependencies": {
-    "commander": "^2.19.0"
+    "commander": "^2.20.0"
   },
   "engines": {
     "node": ">= 5.4.0"
