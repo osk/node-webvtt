@@ -14,22 +14,22 @@ describe('WebVTT compiler', () => {
 
   it('should not compile null', () => {
     (() => { compile(null); })
-      .should.throw(compilerError, /null/);
+      .should.throw(compilerError, /Input must be non-null/);
   });
 
   it('should not compile undefined', () => {
     (() => { compile(); })
-      .should.throw(compilerError, /Input/);
+      .should.throw(compilerError, /Input must be non-null/);
   });
 
   it('should not compile string', () => {
-    (() => { compile(''); })
-      .should.throw(compilerError, /Input/);
+    (() => { compile('a'); })
+      .should.throw(compilerError, /Input must be an object/);
   });
 
   it('should not compile array', () => {
     (() => { compile([]); })
-      .should.throw(compilerError, /Input/);
+      .should.throw(compilerError, /Input cannot be array/);
   });
 
   it('should compile object', () => {
@@ -305,5 +305,81 @@ Det smakar som te.
 Ta en kopp
 `;
     compile(parse(input)).should.equal(input);
+  });
+
+  it('should not compile non string styles', () => {
+    (() => {
+      compile({
+        cues: [{
+          end: '1',
+          identifier: '',
+          start: '0',
+          styles: 0,
+          text: 'Hello world!'
+        }], valid: true
+      });
+    })
+      .should.throw(compilerError, /Cue malformed/);
+  });
+
+  it('should not compile non string text', () => {
+    (() => {
+      compile({
+        cues: [{
+          end: '1',
+          identifier: '',
+          start: '0',
+          styles: '',
+          text: 0
+        }], valid: true
+      });
+    })
+      .should.throw(compilerError, /Cue malformed/);
+  });
+
+  it('should not compile NaN start', () => {
+    (() => {
+      compile({
+        cues: [{
+          end: '1',
+          identifier: '',
+          start: NaN,
+          styles: '',
+          text: 'Hello world!'
+        }], valid: true
+      });
+    })
+      .should.throw(compilerError, /Cue malformed/);
+  });
+
+  it('should not compile non object cues', () => {
+    (() => {
+      compile({
+        cues: [1], valid: true
+      });
+    })
+      .should.throw(compilerError, /Cue malformed/);
+  });
+
+  it('should compile styles', () => {
+
+    const input = {
+      cues: [{
+        end: 140,
+        identifier: '1',
+        start: 135.001,
+        styles: 'align:start line:0%',
+        text: 'Hello world'
+      }],
+      valid: true
+    };
+    const output = `WEBVTT
+
+1
+00:02:15.001 --> 00:02:20.000 align:start line:0%
+Hello world
+`;
+
+    compile(input).should.equal(output);
   });
 });

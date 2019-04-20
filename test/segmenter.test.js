@@ -69,6 +69,22 @@ b`;
     segmented[1].cues[0].should.deep.equal(parsed.cues[1]);
   });
 
+  it('should skip empty cues in segmenting', () => {
+    const input = `WEBVTT
+
+00:00.000 --> 00:01.000
+
+01:11.000 --> 01:20.000
+b`;
+    const parsed = parse(input);
+    const segmented = segment(input);
+
+    parsed.cues.should.have.length(1);
+    segmented.should.have.length(1);
+    segmented[0].duration.should.equal(80);
+    segmented[0].cues[0].should.deep.equal(parsed.cues[0]);
+  });
+
   it('should have cue that passes boundaries in two segments', () => {
     const input = `WEBVTT
 

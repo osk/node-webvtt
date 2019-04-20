@@ -159,7 +159,7 @@
     "no-multiple-empty-lines": [
       2,
       {
-        "max": 2
+        "max": 1
       }
     ],
     "no-nested-ternary": 2,
@@ -198,6 +198,8 @@
       "error",
       { "blankLine": "always", "prev": "block-like", "next": "*" },
       { "blankLine": "always", "prev": "*", "next": "block-like" }
-    ]
+    ],
+    "object-curly-spacing": ["error", "always"],
+    "no-useless-concat": "error"
   }
 }
