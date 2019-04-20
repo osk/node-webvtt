@@ -271,6 +271,29 @@ Ta en kopp
     compile(input).should.equal(output);
   });
 
+  it('should round properly', () => {
+
+    const input = {
+      cues: [{
+        end: 140.0001,
+        identifier: '1',
+        start: 135.9999,
+        styles: '',
+        text: 'Ta en kopp varmt te.\nDet är inte varmt.'
+      }],
+      valid: true
+    };
+    const output = `WEBVTT
+
+1
+00:02:15.999 --> 00:02:20.000
+Ta en kopp varmt te.
+Det är inte varmt.
+`;
+
+    compile(input).should.equal(output);
+  });
+
   it('should compile string start and end times', () => {
     (() => {
       compile({
