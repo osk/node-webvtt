@@ -4,3 +4,4 @@ node_modules
 .env
 lib-cov
 .nyc_output
+coverage/

@@ -35,3 +35,7 @@ jobs:
 
       # run tests!
       - run: npm test
+
+      - store_artifacts:
+          path: coverage
+          destination: coverage

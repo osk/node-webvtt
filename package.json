@@ -41,5 +41,23 @@
   ],
   "bin": {
     "webvtt-segment": "./bin/webvtt-segment.js"
+  },
+  "nyc": {
+    "extension": [
+      ".js"
+    ],
+    "include": [
+      "lib/**/*.js"
+    ],
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "all": true,
+    "check-coverage": true,
+    "statements": 99,
+    "functions": 99,
+    "branches": 99,
+    "lines": 99
   }
 }
