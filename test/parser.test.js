@@ -259,7 +259,8 @@ Chapter 17`;
     const input = `WEBVTT
 
 1
-00:00.000 --> 00:00.001`;
+00:00.000 --> 00:00.001
+Options`;
     const options = { meta: true };
 
     parse(input, options).cues[0].start.should.equal(0);
