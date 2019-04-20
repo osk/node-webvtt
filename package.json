@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint *.js **/*.js",
-    "test": "npm run eslint -s && ./node_modules/mocha/bin/mocha -R dot"
+    "test": "npm run eslint -s && nyc mocha -R dot"
   },
   "keywords": [
     "webvtt",
@@ -25,7 +25,8 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^5.7.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^14.0.0"
   },
   "dependencies": {
     "commander": "^2.19.0"
