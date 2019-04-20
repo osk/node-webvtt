@@ -65,7 +65,8 @@ a`;
     const input = `WEBVTT
 
 1
-0 --> 0`;
+0 --> 0
+a`;
 
     (() => { parse(input); })
       .should.throw(parserError, /Invalid cue timestamp/);
@@ -74,7 +75,8 @@ a`;
   it('should fail parsing cue with no min in timestamp', () => {
     const input = `WEBVTT
 
-00:00.001 --> 00:00.000`;
+00:00.001 --> 00:00.000
+a`;
 
     (() => { parse(input); })
       .should.throw(parserError, /Start timestamp greater than end/);
@@ -84,7 +86,8 @@ a`;
     const input = `WEBVTT
 
 1
-00:00.000 --> 00:00.001`;
+00:00.000 --> 00:00.001
+a`;
 
     parse(input).cues[0].start.should.equal(0);
     parse(input).cues[0].end.should.equal(0.001);
@@ -149,7 +152,8 @@ b`;
   it('should fail parsing if start equal to end', () => {
     const input = `WEBVTT
 
-00:00:00.000 --> 00:00:00.000`;
+00:00:00.000 --> 00:00:00.000
+a`;
 
     (() => { parse(input); })
       .should.throw(parserError, /End must be greater than start/);
@@ -221,6 +225,26 @@ Chapter 17`;
     parse(input).cues.should.have.length(3);
   });
 
+  it('should not create any cues when blank', () => {
+    const input = `WEBVTT
+    
+    `;
+
+    parse(input).cues.should.have.length(0);
+  });
+
+  it('should skip blank text cues', () => {
+    const input = `WEBVTT header
+
+    00:00.000 --> 00:00.001
+
+    3
+    00:02:25.000 --> 00:02:30.000
+    - Ta en kopp`;
+
+    parse(input).cues.should.have.length(1);
+  });
+
   it('should not return meta by default', () => {
     const input = `WEBVTT
 
@@ -235,7 +259,8 @@ Chapter 17`;
     const input = `WEBVTT
 
 1
-00:00.000 --> 00:00.001`;
+00:00.000 --> 00:00.001
+Options`;
     const options = { meta: true };
 
     parse(input, options).cues[0].start.should.equal(0);
