@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint *.js **/*.js",
-    "test": "npm run eslint -s && nyc mocha -R dot",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test": "npm run eslint -s && nyc mocha -R dot"
   },
   "keywords": [
     "webvtt",
@@ -25,7 +24,6 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "mocha": "^6.1.4",
     "nyc": "^14.0.0"
@@ -58,9 +56,9 @@
     ],
     "all": true,
     "check-coverage": true,
-    "statements": 99,
-    "functions": 99,
-    "branches": 99,
-    "lines": 99
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
+    "lines": 100
   }
 }
