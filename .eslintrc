@@ -60,8 +60,7 @@
     "block-scoped-var": 2,
     "consistent-return": 2,
     "curly": [
-      2,
-      "multi-line"
+      "error"
     ],
     "default-case": 2,
     "dot-notation": [
