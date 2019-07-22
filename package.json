@@ -1,6 +1,6 @@
 {
   "name": "node-webvtt",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "WebVTT parser, compiler, and segmenter with HLS support",
   "main": "index.js",
   "scripts": {
