@@ -362,8 +362,6 @@ test`;
 
     const result = parse(input, options);
 
-    console.log(result);
-
     result.should.have.property('valid').be.false;
     result.should.have.property('strict').be.false;
     result.cues.length.should.equal(1);
