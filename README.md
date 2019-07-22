@@ -8,7 +8,7 @@ Compiles, parses WebVTT files, segments and generates HLS playlists for them.
 
 For a WebVTT file:
 
-```
+```text
 WEBVTT
 
 00:00:00.000 --> 00:00:01.000
@@ -44,6 +44,7 @@ const segments = webvtt.hls.hlsSegment(input, segmentDuration, startOffset);
 Parses the WebVTT file and returns an object with `valid === true` if parsed correctly and an array of cues parsed.
 
 Each cue can have:
+
 * `identifier` - Id, if any of the cue
 * `start` - Start time of cue in seconds
 * `end` - End time of cue in seconds
@@ -125,7 +126,7 @@ result = {
 
 Some WebVTT strings may also contain lines of metadata after the initial `WEBVTT` line, for example:
 
-```
+```text
 WEBVTT
 Kind: captions
 Language: en
@@ -136,7 +137,7 @@ Hello world!
 
 By passing `{ meta: true }` to the `parse` method, these metadata will be returned as an object called `meta`. For example, parsing the above example:
 
-```js
+```javascript
 parse(webvtt, { meta: true });
 ```
 
@@ -192,7 +193,7 @@ For the above example:
 
 Creates a subtitle playlist. For the above:
 
-```
+```text
 #EXTM3U
 #EXT-X-TARGETDURATION:41
 #EXT-X-VERSION:3
@@ -238,12 +239,12 @@ Creates a list of HLS segments for the subtitles, returning an array of them wit
 
 For segmenting a WebVTT file quickly, you can use the included CLI tool:
 
-```
-$ ./webvtt-segment.js -v --target-duration 10 -o ./subs subs.vtt
+```bash
+./webvtt-segment.js -v --target-duration 10 -o ./subs subs.vtt
 ```
 
-```
-% ./webvtt-segment.js --help
+```bash
+$ ./webvtt-segment.js --help
 
   Usage: webvtt-segment [options] <webvtt file>
 
@@ -261,7 +262,7 @@ $ ./webvtt-segment.js -v --target-duration 10 -o ./subs subs.vtt
 
 This has been written with TDD so we've got a good coverage of the features.
 
-```
+```bash
 npm install
 npm test
 mocha -w
@@ -270,22 +271,10 @@ mocha -w
 <lather, rinse, repeat>
 ```
 
-## TODO
-
-- [ ] Remove `valid` from parsing result, having a result means it's valid
-- [ ] Add more options to control output
-- [ ] Better parsing
-- [ ] Support more subtitles formats (at least SRT, maybe SSA/ASS)
-- [ ] Iron out segmenting bugs with real playlists
-- [ ] Refactor the mess that is the segmenter (yay, unit tests!)
-- [ ] Nicer interface, don't be parsing again and again
-- [ ] Do something to make the cli tool more accessible
-- [ ] Code coverage reporting
-
 ## References
 
 * Anne van Kesteren's [WebVTT validator](https://github.com/annevk/webvtt)
-    - [Live validator](https://quuz.org/webvtt/)
+  * [Live validator](https://quuz.org/webvtt/)
 * [WebVTT Ruby parser and segmenter](https://github.com/opencoconut/webvtt-ruby)
 * `mediasubtitlesegmenter` from Apple
 * [WebVTT: The Web Video Text Tracks Format](https://w3c.github.io/webvtt/)
