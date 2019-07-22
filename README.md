@@ -90,6 +90,37 @@ For the above example we'd get:
 }
 ```
 
+By default the parser is strict. It will throw errors if:
+
+* Header is incorrect, i.e. does not start with `WEBVTT`
+* If any cue is malformed in any way
+
+Setting the option parameter of `strict` to `false` will allow files with malformed cues to be parsed. The resulting object will have `valid === false` and all errors in an `errors` array.
+
+If `strict` is set to `false`, the parser will also not categorize it as an error if a cue starts and ends at the same time. This might be the correct behaviour but changing would introduce a breaking change in version 1.x.
+
+```javascript
+const input = `WEBVTT
+
+MALFORMEDCUE -->
+This text is from a malformed cue. It should not be processed.
+
+1
+00:00.000 --> 00:00.001
+test`;
+
+const result = parse(input, { strict: false });
+
+/*
+result = {
+  valid: false,
+  strict: false,
+  cues: [ { identifier: '1', start: 0, end: 0.001, text: 'test', styles: '' } ],
+  errors: [ { Error: Invalid cue timestamp (cue #0) message: 'Invalid cue timestamp (cue #0)', error: undefined } ]
+}
+*/
+```
+
 ### Metadata
 
 Some WebVTT strings may also contain lines of metadata after the initial `WEBVTT` line, for example:
