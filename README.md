@@ -166,10 +166,40 @@ If no metadata is available, `meta` will be set to `null` in the result if the o
 
 ### Compiling
 
-Compiles JSON from the above format back into a WebVTT string.
+Compiles JSON from the above format back into a WebVTT string. If a `meta` key is in the input,
+it will be compiled as well. The `meta` value must be an object and each key and value must be a string.
 
 If the object is missing any attributes, the compiler will throw a `CompilerError` exception. So
 for safety, calls to `compile` should be in `try catch`.
+
+```javascript
+const input = {
+  meta: {
+    Kind: 'captions',
+    Language: 'en'
+  },
+  cues: [{
+    end: 140,
+    identifier: '1',
+    start: 135.001,
+    text: 'Hello world',
+    styles: ''
+  }],
+  valid: true
+};
+
+const result = compile(input);
+
+/*
+WEBVTT
+Kind: captions
+Language: en
+
+1
+00:02:15.001 --> 00:02:20.000
+Hello world
+*/
+```
 
 ### Segmenting
 
