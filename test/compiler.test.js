@@ -447,4 +447,29 @@ Hello world
     })
       .should.throw(compilerError, /Metadata value for "foo" must be string/);
   });
+
+  it('should not compile cues in non-chronological order', () => {
+    const input = {
+      valid: true,
+      cues: [
+        {
+          identifier: '',
+          start: 30,
+          end: 31,
+          text: 'This is a subtitle',
+          styles: 'align:start line:0%'
+        },
+        {
+          identifier: '',
+          start: 0,
+          end: 1,
+          text: 'Hello world!',
+          styles: ''
+        }
+      ]
+    };
+
+    (() => { compile(input); })
+      .should.throw(compilerError, /Cues must be in a chronological order/);
+  });
 });
