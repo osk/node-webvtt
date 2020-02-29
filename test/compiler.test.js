@@ -470,6 +470,33 @@ Hello world
     };
 
     (() => { compile(input); })
-      .should.throw(compilerError, /Cues must be in a chronological order/);
+      .should.throw(compilerError,
+        /Cue number \d+ is not in chronological order/
+      );
+  });
+
+  it('should allow cues that overlap in time', () => {
+    const input = {
+      valid: true,
+      cues: [
+        {
+          identifier: '',
+          start: 1,
+          end: 5,
+          text: 'This is a subtitle',
+          styles: 'align:start line:0%'
+        },
+        {
+          identifier: '',
+          start: 3,
+          end: 7,
+          text: 'Hello world!',
+          styles: ''
+        }
+      ]
+    };
+
+    (() => { compile(input); })
+      .should.not.throw(compilerError, /Cues must be in a chronological order/);
   });
 });
