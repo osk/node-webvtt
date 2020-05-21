@@ -413,4 +413,14 @@ Text Position: 5%
     result.errors.length.should.equal(1);
     result.errors[0].message.should.equal('Invalid cue timestamp (cue #14)');
   });
+
+  it('should parse cue w/o round-off', () => {
+    const input = `WEBVTT
+
+    01:24:39.06 --> 01:24:40.060
+a`;
+
+    parse(input).cues[0].start.should.equal(5079.06);
+    parse(input).cues[0].end.should.equal(5080.06);
+  });
 });

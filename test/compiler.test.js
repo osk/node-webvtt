@@ -271,6 +271,50 @@ Ta en kopp
     compile(input).should.equal(output);
   });
 
+  it('should compile with accurate milliseconds', () => {
+
+    const input = {
+      cues: [{
+        end: 1199.539,
+        identifier: '1',
+        start: 1199.529,
+        styles: '',
+        text: 'Ta en kopp varmt te.\nDet är inte varmt.'
+      }, {
+        end: 1199.549,
+        identifier: '2',
+        start: 1199.539,
+        styles: '',
+        text: 'Har en kopp te.\nDet smakar som te.'
+      }, {
+        end: 1199.558,
+        identifier: '3',
+        start: 1199.549,
+        styles: '',
+        text: 'Ta en kopp'
+      }],
+      valid: true
+    };
+    const output = `WEBVTT
+
+1
+00:19:59.529 --> 00:19:59.539
+Ta en kopp varmt te.
+Det är inte varmt.
+
+2
+00:19:59.539 --> 00:19:59.549
+Har en kopp te.
+Det smakar som te.
+
+3
+00:19:59.549 --> 00:19:59.558
+Ta en kopp
+`;
+
+    compile(input).should.equal(output);
+  });
+
   it('should round properly', () => {
 
     const input = {
