@@ -299,6 +299,7 @@ Language: en
     const input = `WEBVTT
 Kind: captions
 Language: en
+X-TIMESTAMP-MAP=LOCAL:00:00:00.000,MPEGTS:0
 
 1
 00:00.000 --> 00:00.001`;
@@ -306,7 +307,11 @@ Language: en
 
     parse(input, options).should.have.property('valid').be.true;
     parse(input, options).should.have.property('meta').be.deep.equal(
-      { Kind: 'captions', Language: 'en' }
+      {
+        Kind: 'captions',
+        Language: 'en',
+        'X-TIMESTAMP-MAP=LOCAL': '00:00:00.000,MPEGTS:0'
+      }
     );
   });
 

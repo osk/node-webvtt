@@ -454,7 +454,8 @@ Hello world
     const input = {
       meta: {
         Kind: 'captions',
-        Language: 'en'
+        Language: 'en',
+        'X-TIMESTAMP-MAP=LOCAL': '00:00:00.000,MPEGTS:0'
       },
       cues: [{
         end: 140,
@@ -469,6 +470,7 @@ Hello world
     const output = `WEBVTT
 Kind: captions
 Language: en
+X-TIMESTAMP-MAP=LOCAL: 00:00:00.000,MPEGTS:0
 
 1
 00:02:15.001 --> 00:02:20.000
