@@ -428,4 +428,44 @@ a`;
     parse(input).cues[0].start.should.equal(5079.06);
     parse(input).cues[0].end.should.equal(5080.06);
   });
+
+  it('should not throw unhandled error on malformed input in non strict mode',
+    () => {
+      const input = `WEBVTT FILE
+
+1096
+01:45:13.056 --> 01:45:14.390
+
+
+
+...mission.
+`;
+
+      const result = parse(input, { strict: false });
+
+      result.should.have.property('valid').be.false;
+      result.errors.length.should.equal(2);
+      result.errors[0].message.should.equal('Invalid cue timestamp (cue #1)');
+      result.errors[1].message.should.equal(
+        'Cue identifier cannot be standalone (cue #2)'
+      );
+    }
+  );
+
+  it('should throw a handled error not an unhandled one on malformed input',
+    () => {
+      const input = `WEBVTT FILE
+
+1096
+01:45:13.056 --> 01:45:14.390
+
+
+
+...mission.
+`;
+
+      (() => { parse(input); })
+        .should.throw(parserError, /Invalid cue timestamp/);
+    }
+  );
 });
