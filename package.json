@@ -24,12 +24,12 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.8.0",
-    "mocha": "^6.2.2",
-    "nyc": "^14.1.1"
+    "eslint": "^7.9.0",
+    "mocha": "^8.1.3",
+    "nyc": "^15.1.0"
   },
   "dependencies": {
-    "commander": "^2.20.3"
+    "commander": "^6.1.0"
   },
   "engines": {
     "node": ">= 8.16.0"
