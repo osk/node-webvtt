@@ -105,6 +105,16 @@ a`;
     parse(input).cues[0].end.should.equal(0.001);
   });
 
+  it('should parse cue with long hours timestamp', () => {
+    const input = `WEBVTT
+
+10000:00:00.000 --> 10000:00:00.001
+a`;
+
+    parse(input).cues[0].start.should.equal(36000000);
+    parse(input).cues[0].end.should.equal(36000000.001);
+  });
+
   it('should return parsed data about a single cue', () => {
     const input = `WEBVTT
 
