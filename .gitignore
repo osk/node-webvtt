@@ -5,3 +5,4 @@ node_modules
 lib-cov
 .nyc_output
 coverage/
+dist/
