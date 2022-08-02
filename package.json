@@ -2,10 +2,11 @@
   "name": "node-webvtt",
   "version": "1.9.4",
   "description": "WebVTT parser, compiler, and segmenter with HLS support",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "eslint": "eslint *.js **/*.js",
-    "test": "npm run eslint -s && nyc mocha -R dot"
+    "eslint": "eslint *.ts **/*.ts",
+    "test": "npm run eslint -s && jest -c jest.config.js",
+    "test:watch": "npm run eslint -s && npx jest -c jest.config.js --watch"
   },
   "keywords": [
     "webvtt",
@@ -23,10 +24,23 @@
   "author": "Ólafur Sverrir Kjartansson <kjarni@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.3.0",
-    "eslint": "^7.20.0",
-    "mocha": "^8.3.0",
-    "nyc": "^15.1.0"
+    "@types/jest": "^27.0.0",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.2.2",
+    "eslint-plugin-jest-formatting": "^3.0.0",
+    "eslint-plugin-json": "^3.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-unicorn": "^43.0.0",
+    "jest": "^28.0.0",
+    "prettier": "^2.3.1",
+    "ts-jest": "^28.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
   },
   "dependencies": {
     "commander": "^7.1.0"
@@ -40,25 +54,9 @@
     "index.js"
   ],
   "bin": {
-    "webvtt-segment": "./bin/webvtt-segment.js"
+    "webvtt-segment": "./bin/webvtt-segment.ts"
   },
-  "nyc": {
-    "extension": [
-      ".js"
-    ],
-    "include": [
-      "lib/**/*.js"
-    ],
-    "reporter": [
-      "text",
-      "html",
-      "lcov"
-    ],
-    "all": true,
-    "check-coverage": true,
-    "statements": 100,
-    "functions": 100,
-    "branches": 100,
-    "lines": 100
+  "prettier": {
+    "parser": "typescript"
   }
 }

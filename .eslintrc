@@ -3,15 +3,15 @@
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true
+    "jest": true
   },
-  "globals": {
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
   },
+  "globals": {},
   "rules": {
-    "strict": [
-      2,
-      "global"
-    ],
+    "strict": [2, "global"],
     "max-len": [2, 80, 2],
     "no-var": 1,
     "arrow-spacing": 2,
@@ -30,14 +30,8 @@
       }
     ],
     "no-use-before-define": [2, "nofunc"],
-    "comma-dangle": [
-      2,
-      "never"
-    ],
-    "no-cond-assign": [
-      2,
-      "always"
-    ],
+    "comma-dangle": [2, "never"],
+    "no-cond-assign": [2, "always"],
     "no-console": 0,
     "no-debugger": 1,
     "no-dupe-args": 2,
@@ -59,9 +53,7 @@
     "use-isnan": 2,
     "block-scoped-var": 2,
     "consistent-return": 2,
-    "curly": [
-      "error"
-    ],
+    "curly": ["error"],
     "default-case": 2,
     "dot-notation": [
       2,
@@ -99,14 +91,8 @@
     "no-with": 2,
     "radix": 2,
     "vars-on-top": 2,
-    "wrap-iife": [
-      2,
-      "any"
-    ],
-    "indent": [
-      2,
-      2
-    ],
+    "wrap-iife": [2, "any"],
+    "indent": [2, 2],
     "brace-style": [
       2,
       "1tbs",
@@ -114,11 +100,7 @@
         "allowSingleLine": true
       }
     ],
-    "quotes": [
-      2,
-      "single",
-      "avoid-escape"
-    ],
+    "quotes": [2, "double", "avoid-escape"],
     "camelcase": [
       2,
       {
@@ -132,10 +114,7 @@
         "after": true
       }
     ],
-    "comma-style": [
-      2,
-      "last"
-    ],
+    "comma-style": [2, "last"],
     "eol-last": 2,
     "func-names": 1,
     "key-spacing": [
@@ -149,10 +128,7 @@
       2,
       {
         "newIsCap": true,
-        "capIsNewExceptions": [
-          "Polymer",
-          "Intercom"
-        ]
+        "capIsNewExceptions": ["Polymer", "Intercom"]
       }
     ],
     "no-multiple-empty-lines": [
@@ -165,19 +141,10 @@
     "no-new-object": 2,
     "no-spaced-func": 2,
     "no-trailing-spaces": 2,
-    "no-extra-parens": [
-      2,
-      "functions"
-    ],
+    "no-extra-parens": [2, "functions"],
     "no-underscore-dangle": 0,
-    "one-var": [
-      2,
-      "never"
-    ],
-    "semi": [
-      2,
-      "always"
-    ],
+    "one-var": [2, "never"],
+    "semi": [2, "always"],
     "semi-spacing": [
       2,
       {
@@ -187,10 +154,7 @@
     ],
     "keyword-spacing": 2,
     "space-before-blocks": 2,
-    "space-before-function-paren": [
-      2,
-      "always"
-    ],
+    "space-before-function-paren": [2, "always"],
     "space-infix-ops": 2,
     "spaced-comment": 2,
     "padding-line-between-statements": [

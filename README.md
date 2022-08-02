@@ -27,7 +27,7 @@ Bar
 We can parse, segment and create HLS playlists, and compile back to WebVTT format:
 
 ```javascript
-const webvtt = require('node-webvtt');
+import webvtt from "node-webvtt";
 
 const segmentDuration = 10; // default to 10
 const startOffset = 0; // Starting MPEG TS offset to be used in timestamp map, default 900000
@@ -45,11 +45,11 @@ Parses the WebVTT file and returns an object with `valid === true` if parsed cor
 
 Each cue can have:
 
-* `identifier` - Id, if any of the cue
-* `start` - Start time of cue in seconds
-* `end` - End time of cue in seconds
-* `text` - Text of the subtitle
-* `styles` - If any of the cue
+- `identifier` - Id, if any of the cue
+- `start` - Start time of cue in seconds
+- `end` - End time of cue in seconds
+- `text` - Text of the subtitle
+- `styles` - If any of the cue
 
 If the WebVTT file is invalid, the parser will throw a `ParserError` exception. So for safety, calls to `parse` should be in `try catch`.
 
@@ -57,44 +57,44 @@ For the above example we'd get:
 
 ```json
 {
-   "valid":true,
-   "cues":[
-      {
-         "identifier":"",
-         "start":0,
-         "end":1,
-         "text":"Hello world!",
-         "styles":""
-      },
-      {
-         "identifier":"",
-         "start":30,
-         "end":31,
-         "text":"This is a subtitle",
-         "styles":"align:start line:0%"
-      },
-      {
-         "identifier":"",
-         "start":60,
-         "end":61,
-         "text":"Foo",
-         "styles":""
-      },
-      {
-         "identifier":"",
-         "start":110,
-         "end":111,
-         "text":"Bar",
-         "styles":""
-      }
-   ]
+  "valid": true,
+  "cues": [
+    {
+      "identifier": "",
+      "start": 0,
+      "end": 1,
+      "text": "Hello world!",
+      "styles": ""
+    },
+    {
+      "identifier": "",
+      "start": 30,
+      "end": 31,
+      "text": "This is a subtitle",
+      "styles": "align:start line:0%"
+    },
+    {
+      "identifier": "",
+      "start": 60,
+      "end": 61,
+      "text": "Foo",
+      "styles": ""
+    },
+    {
+      "identifier": "",
+      "start": 110,
+      "end": 111,
+      "text": "Bar",
+      "styles": ""
+    }
+  ]
 }
 ```
 
 By default the parser is strict. It will throw errors if:
 
-* Header is incorrect, i.e. does not start with `WEBVTT`
-* If any cue is malformed in any way
+- Header is incorrect, i.e. does not start with `WEBVTT`
+- If any cue is malformed in any way
 
 Setting the option parameter of `strict` to `false` will allow files with malformed cues to be parsed. The resulting object will have `valid === false` and all errors in an `errors` array.
 
@@ -145,20 +145,20 @@ would return the following:
 
 ```json
 {
-   "valid":true,
-   "meta":{
-      "Kind": "captions",
-      "Language": "en"
-   },
-   "cues":[
-      {
-         "identifier":"",
-         "start":0,
-         "end":1,
-         "text":"Hello world!",
-         "styles":""
-      }
-   ]
+  "valid": true,
+  "meta": {
+    "Kind": "captions",
+    "Language": "en"
+  },
+  "cues": [
+    {
+      "identifier": "",
+      "start": 0,
+      "end": 1,
+      "text": "Hello world!",
+      "styles": ""
+    }
+  ]
 }
 ```
 
@@ -175,17 +175,19 @@ for safety, calls to `compile` should be in `try catch`.
 ```javascript
 const input = {
   meta: {
-    Kind: 'captions',
-    Language: 'en'
+    Kind: "captions",
+    Language: "en",
   },
-  cues: [{
-    end: 140,
-    identifier: '1',
-    start: 135.001,
-    text: 'Hello world',
-    styles: ''
-  }],
-  valid: true
+  cues: [
+    {
+      end: 140,
+      identifier: "1",
+      start: 135.001,
+      text: "Hello world",
+      styles: "",
+    },
+  ],
+  valid: true,
 };
 
 const result = compile(input);
@@ -205,18 +207,18 @@ Hello world
 
 Segments a subtitle according to how it should be segmented for HLS subtitles.
 
-* Does a one pass of the cues for segmenting, this might have been a good idea or bad, only time will tell
-* The One and Only Source of Truth is Apple's `mediasubtitlesegmenter` CLI
+- Does a one pass of the cues for segmenting, this might have been a good idea or bad, only time will tell
+- The One and Only Source of Truth is Apple's `mediasubtitlesegmenter` CLI
 
 For the above example:
 
 ```javascript
 [
-    { duration: 10, cues: [ [Object] ] },
-    { duration: 30, cues: [ [Object] ] },
-    { duration: 30, cues: [ [Object] ] },
-    { duration: 41, cues: [ [Object] ] }
-]
+  { duration: 10, cues: [[Object]] },
+  { duration: 30, cues: [[Object]] },
+  { duration: 30, cues: [[Object]] },
+  { duration: 41, cues: [[Object]] },
+];
 ```
 
 ### HLS playlist
@@ -246,22 +248,22 @@ Creates a list of HLS segments for the subtitles, returning an array of them wit
 
 ```json
 [
-   {
-      "filename":"0.vtt",
-      "content":"WEBVTT\nX-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000\n\n00:00:00.000 --> 00:00:01.000\nHello world!\n"
-   },
-   {
-      "filename":"1.vtt",
-      "content":"WEBVTT\nX-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000\n\n00:00:30.000 --> 00:00:31.000 align:start line:0%\nThis is a subtitle\n"
-   },
-   {
-      "filename":"2.vtt",
-      "content":"WEBVTT\nX-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000\n\n00:01:00.000 --> 00:01:01.000\nFoo\n"
-   },
-   {
-      "filename":"3.vtt",
-      "content":"WEBVTT\nX-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000\n\n00:01:50.000 --> 00:01:51.000\nBar\n"
-   }
+  {
+    "filename": "0.vtt",
+    "content": "WEBVTT\nX-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000\n\n00:00:00.000 --> 00:00:01.000\nHello world!\n"
+  },
+  {
+    "filename": "1.vtt",
+    "content": "WEBVTT\nX-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000\n\n00:00:30.000 --> 00:00:31.000 align:start line:0%\nThis is a subtitle\n"
+  },
+  {
+    "filename": "2.vtt",
+    "content": "WEBVTT\nX-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000\n\n00:01:00.000 --> 00:01:01.000\nFoo\n"
+  },
+  {
+    "filename": "3.vtt",
+    "content": "WEBVTT\nX-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000\n\n00:01:50.000 --> 00:01:51.000\nBar\n"
+  }
 ]
 ```
 
@@ -280,12 +282,13 @@ $ ./webvtt-segment.js --help
 
   Options:
 
-    -h, --help                        output usage information
-    -V, --version                     output the version number
-    -t, --target-duration [duration]  Target duration for each segment in secods, defaults to 10
-    -o, --output-directory [dir]      Output directory for segments and playlist
-    -v, --verbose                     Chatty output
-    -s, --silent                      No output
+    -h, --help                         output usage information
+    -V, --version                      output the version number
+    -t, --target-duration [duration]   Target duration for each segment in secods, defaults to 10
+    -o, --output-directory [dir]       Output directory for segments and playlist
+    -p, --playlist-filename [filename]
+    -v, --verbose                      Chatty output
+    -s, --silent                       No output
 ```
 
 ## Development
@@ -294,8 +297,7 @@ This has been written with TDD so we've got a good coverage of the features.
 
 ```bash
 npm install
-npm test
-mocha -w
+npm run test
 <write failing test>
 <write passing code>
 <lather, rinse, repeat>
@@ -303,8 +305,8 @@ mocha -w
 
 ## References
 
-* Anne van Kesteren's [WebVTT validator](https://github.com/annevk/webvtt)
-  * [Live validator](https://quuz.org/webvtt/)
-* [WebVTT Ruby parser and segmenter](https://github.com/opencoconut/webvtt-ruby)
-* `mediasubtitlesegmenter` from Apple
-* [WebVTT: The Web Video Text Tracks Format](https://w3c.github.io/webvtt/)
+- Anne van Kesteren's [WebVTT validator](https://github.com/annevk/webvtt)
+  - [Live validator](https://quuz.org/webvtt/)
+- [WebVTT Ruby parser and segmenter](https://github.com/opencoconut/webvtt-ruby)
+- `mediasubtitlesegmenter` from Apple
+- [WebVTT: The Web Video Text Tracks Format](https://w3c.github.io/webvtt/)
