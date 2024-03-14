@@ -3,6 +3,7 @@
   "version": "1.9.4",
   "description": "WebVTT parser, compiler, and segmenter with HLS support",
   "main": "index.js",
+  "types": "types.d.ts",
   "scripts": {
     "eslint": "eslint *.js **/*.js",
     "test": "npm run eslint -s && nyc mocha -R dot"
