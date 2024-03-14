@@ -25,14 +25,6 @@ export type ParseOutput<T extends ParseOptions> = {
   errors: unknown[];
 } & (T extends { meta: true } ? Meta : {});
 
-export declare class ParserError extends Error {
-  readonly message: string;
-  constructor(message: string, error?: unknown);
-}
-
-/**
- * @throws {ParserError}
- */
 export function parse<O extends ParseOptions>(
   input: string,
   options?: O
@@ -44,11 +36,6 @@ export type CompileInput = {
   cues: Cue[];
 };
 
-export declare class CompilerError extends Error {
-  readonly error: unknown;
-  constructor(message: string, error?: unknown);
-}
-
 export function compile(input: CompileInput): string;
 
 type Segment = {
@@ -56,9 +43,6 @@ type Segment = {
   duration: number;
 };
 
-/**
- * @throws {ParserError}
- */
 export function segment(
   input: string,
   segmentLength?: number | undefined
@@ -69,18 +53,12 @@ type HlsSegment = {
   content: string;
 };
 
-/**
- * @throws {ParserError}
- */
 declare function hlsSegment(
   input: string,
   segmentLength?: number | undefined,
   startOffset?: string | undefined
 ): HlsSegment[];
 
-/**
- * @throws {ParserError}
- */
 declare function hlsSegmentPlaylist(
   input: string,
   segmentLength?: number | undefined
