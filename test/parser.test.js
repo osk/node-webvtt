@@ -478,4 +478,14 @@ a`;
         .should.throw(parserError, /Invalid cue timestamp/);
     }
   );
+
+  it('should throw an error if the inline style is invalid', () => {
+    const input = `WEBVTT
+
+1
+00:00.000 --> 00:00.001 0`;
+
+    (() => { parse(input); })
+      .should.throw(parserError, /Invalid inline style/);
+  });
 });
