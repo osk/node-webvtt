@@ -24,9 +24,9 @@
   "author": "Ólafur Sverrir Kjartansson <kjarni@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.3.0",
-    "eslint": "^7.20.0",
-    "mocha": "^8.3.0",
+    "chai": "^4.5.0",
+    "eslint": "^7.32.0",
+    "mocha": "^8.4.0",
     "nyc": "^15.1.0"
   },
   "engines": {
