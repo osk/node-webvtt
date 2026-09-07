@@ -29,20 +29,13 @@
     "mocha": "^8.3.0",
     "nyc": "^15.1.0"
   },
-  "dependencies": {
-    "commander": "^7.1.0"
-  },
   "engines": {
-    "node": ">= 8.16.0"
+    "node": ">= 22"
   },
   "files": [
     "/lib",
-    "/bin",
     "index.js"
   ],
-  "bin": {
-    "webvtt-segment": "./bin/webvtt-segment.js"
-  },
   "nyc": {
     "extension": [
       ".js"
