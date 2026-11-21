@@ -488,4 +488,19 @@ a`;
     (() => { parse(input); })
       .should.throw(parserError, /Invalid inline style/);
   });
+
+  it('should parse cue timings separated by tabs or several spaces', () => {
+    const input = 'WEBVTT\n\n00:00.000\t-->\t00:01.000\na\n\n' +
+      '00:01.000   -->  00:02.000  align:start\tline:0\nb';
+
+    const result = parse(input);
+
+    result.cues.should.have.length(2);
+    result.cues[0].start.should.equal(0);
+    result.cues[0].end.should.equal(1);
+    result.cues[0].text.should.equal('a');
+    result.cues[1].start.should.equal(1);
+    result.cues[1].end.should.equal(2);
+    result.cues[1].styles.should.equal('align:start\tline:0');
+  });
 });
